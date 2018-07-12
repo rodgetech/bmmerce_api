@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: development_belizerentify
+  host: localhost
+  pool: 5
+  username: luis
+  password: rodge24
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: test_belizerentify
+  host: localhost
+  pool: 5
+  username: luis
+  password: rodge24
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: production_belizerentify
+  host: localhost
+  pool: 5
+  username: luis
+  password: rodge24
