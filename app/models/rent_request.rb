@@ -1,0 +1,2 @@
+class RentRequest < ApplicationRecord
+end

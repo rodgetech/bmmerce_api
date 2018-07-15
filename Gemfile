@@ -11,6 +11,8 @@ gem 'puma', '~> 3.7'
 gem 'bcrypt'
 gem 'jwt'
 gem 'simple_command'
+gem 'money-rails', '~>1'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
