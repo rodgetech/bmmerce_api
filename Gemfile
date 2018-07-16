@@ -13,6 +13,9 @@ gem 'jwt'
 gem 'simple_command'
 gem 'money-rails', '~>1'
 gem 'rack-cors', require: 'rack/cors'
+gem 'carrierwave', '~> 1.0'
+gem 'cloudinary'
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

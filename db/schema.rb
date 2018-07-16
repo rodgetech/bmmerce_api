@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180715025815) do
+ActiveRecord::Schema.define(version: 20180716045709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "images", force: :cascade do |t|
+    t.string "listing_image"
+    t.bigint "listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_images_on_listing_id"
+  end
 
   create_table "listings", force: :cascade do |t|
     t.string "title"
@@ -35,6 +43,8 @@ ActiveRecord::Schema.define(version: 20180715025815) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "listing_id"
+    t.index ["listing_id"], name: "index_rent_requests_on_listing_id"
   end
 
   create_table "renters", force: :cascade do |t|
@@ -57,5 +67,7 @@ ActiveRecord::Schema.define(version: 20180715025815) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "images", "listings"
   add_foreign_key "listings", "users"
+  add_foreign_key "rent_requests", "listings"
 end
