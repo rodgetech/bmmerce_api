@@ -1,7 +1,8 @@
 class Api::V1::ListingsController < ApplicationController
-    skip_before_action :authenticate_request
+    skip_before_action :authenticate_request, except: [:update, :user_listings, :destroy]
     before_action :set_listings, only: :index
     before_action :set_featured_listings, only: :featured
+    before_action :set_user_listings, only: :user_listings
 
     def index
         render json: @listings, adapter: :json
@@ -9,6 +10,10 @@ class Api::V1::ListingsController < ApplicationController
 
     def featured
         render json: @featured_listings, adapter: :json
+    end
+
+    def user_listings
+        render json: @user_listings, adapter: :json
     end
 
     def show
@@ -26,7 +31,25 @@ class Api::V1::ListingsController < ApplicationController
         end
     end
 
+    def update
+        listing = Listing.find(params[:id])
+        if listing.update(listing_params)
+            render json: listing, adapter: :json, status: 200
+        else
+            render json: { errors: listing.errors }, status: 422
+        end
+    end
+
+    def destroy
+        Listing.find(params[:id]).destroy
+        head 204
+    end
+
     private
+
+    def listing_params
+        params.require(:listing).permit(:title, :description, :price, :price_details, :address, :user_id, :images)
+    end
 
     def set_listings
         if params[:limit]
@@ -44,8 +67,12 @@ class Api::V1::ListingsController < ApplicationController
         end
     end
 
-    def listing_params
-        params.require(:listing).permit(:title, :description, :price, :price_details, :address, :user_id, :images)
+    def set_user_listings
+        if params[:limit]
+            @user_listings = Listing.where(user_id: params[:user_id]).order(created_at: :desc).limit(params[:limit])
+        else 
+            @user_listings = Listing.where(user_id: params[:user_id]).order(created_at: :desc)
+        end
     end
 
     def store_images(listing)
