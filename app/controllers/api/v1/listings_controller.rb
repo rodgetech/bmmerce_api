@@ -24,7 +24,7 @@ class Api::V1::ListingsController < ApplicationController
     def create
         listing = Listing.new(listing_params)
         if listing.save
-            # store_images(listing)
+            store_images(listing)
             render json: listing, adapter: :json, status: 201
         else
             render json: { errors: listing.errors }, status: 422
@@ -48,7 +48,7 @@ class Api::V1::ListingsController < ApplicationController
     private
 
     def listing_params
-        params.require(:listing).permit(:title, :description, :price, :price_details, :address, :user_id, :images)
+        params.permit(:title, :description, :price, :price_details, :address, :user_id)
     end
 
     def set_listings
@@ -76,7 +76,7 @@ class Api::V1::ListingsController < ApplicationController
     end
 
     def store_images(listing)
-        images = params[:listing][:images]
+        images = params[:images]
         images.each {|image| listing.images.create(listing_image: image)} if images
-      end
+    end
 end
