@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716045709) do
+ActiveRecord::Schema.define(version: 20180718204829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "districts", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_districts_on_name", unique: true
+  end
 
   create_table "images", force: :cascade do |t|
     t.string "listing_image"
@@ -33,6 +40,15 @@ ActiveRecord::Schema.define(version: 20180716045709) do
     t.string "address"
     t.decimal "price", precision: 8, scale: 2
     t.boolean "featured", default: false
+    t.bigint "district_id"
+    t.string "contact_name"
+    t.string "contact_email"
+    t.string "contact_number"
+    t.boolean "email_flag", default: true
+    t.boolean "phone_call_flag", default: true
+    t.boolean "sms_flag", default: true
+    t.boolean "whatsapp_flag", default: true
+    t.index ["district_id"], name: "index_listings_on_district_id"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
@@ -68,6 +84,7 @@ ActiveRecord::Schema.define(version: 20180716045709) do
   end
 
   add_foreign_key "images", "listings"
+  add_foreign_key "listings", "districts"
   add_foreign_key "listings", "users"
   add_foreign_key "rent_requests", "listings"
 end

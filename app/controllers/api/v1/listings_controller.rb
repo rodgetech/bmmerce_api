@@ -23,7 +23,8 @@ class Api::V1::ListingsController < ApplicationController
 
     def create
         listing = Listing.new(listing_params)
-        if listing.save
+        if listing.valid?
+            listing.save
             store_images(listing)
             render json: listing, adapter: :json, status: 201
         else
@@ -50,7 +51,10 @@ class Api::V1::ListingsController < ApplicationController
     private
 
     def listing_params
-        params.permit(:id, :title, :description, :price, :price_details, :address, :user_id)
+        params.permit(:id, :title, :description, 
+            :price, :price_details, :address, :contact_name, 
+            :contact_email, :contact_number, :user_id, :email_flag, 
+            :phone_call_flag, :sms_flag, :whatsapp_flag)
     end
 
     def set_listings
