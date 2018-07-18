@@ -34,6 +34,8 @@ class Api::V1::ListingsController < ApplicationController
     def update
         listing = Listing.find(params[:id])
         if listing.update(listing_params)
+            store_images(listing)
+            listing = Listing.find(listing.id)
             render json: listing, adapter: :json, status: 200
         else
             render json: { errors: listing.errors }, status: 422
@@ -48,7 +50,7 @@ class Api::V1::ListingsController < ApplicationController
     private
 
     def listing_params
-        params.permit(:title, :description, :price, :price_details, :address, :user_id)
+        params.permit(:id, :title, :description, :price, :price_details, :address, :user_id)
     end
 
     def set_listings
