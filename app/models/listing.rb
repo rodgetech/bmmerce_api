@@ -2,8 +2,10 @@ class Listing < ApplicationRecord
     include PgSearch
     pg_search_scope :search, against: [:title], using: { tsearch: { prefix: true } }
 
+    geocoded_by :address
+
     belongs_to :user, optional: true
-    belongs_to :district
+    belongs_to :district, optional: true
     has_many :images, dependent: :destroy
     has_many :rent_requests, dependent: :destroy
 

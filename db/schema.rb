@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180718204829) do
+ActiveRecord::Schema.define(version: 20180723001904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20180718204829) do
     t.boolean "phone_call_flag", default: true
     t.boolean "sms_flag", default: true
     t.boolean "whatsapp_flag", default: true
+    t.float "latitude"
+    t.float "longitude"
     t.index ["district_id"], name: "index_listings_on_district_id"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
