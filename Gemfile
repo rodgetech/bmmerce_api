@@ -18,6 +18,7 @@ gem 'cloudinary'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'pg_search'
 gem 'geocoder'
+gem 'mailgun-ruby', '~>1.1.6'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -54,7 +54,7 @@ class Api::V1::ListingsController < ApplicationController
         params.permit(:id, :title, :description, 
             :price, :address, :contact_name, 
             :contact_email, :contact_number, :email_flag, 
-            :phone_call_flag, :sms_flag, :whatsapp_flag)
+            :phone_call_flag, :sms_flag, :whatsapp_flag, :user_id)
     end
 
     def set_listings
