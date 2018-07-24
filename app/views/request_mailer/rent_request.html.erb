@@ -1,9 +1,24 @@
-<h3>New rent request from <%= @request.name %></h3>
-<hr/>
-<h4>Listing: <%= @request.listing.title %></h4>
-<h4>Contact Number: <%= @request.contact_number %></h4>
-<h4>Comment: <br/> <%= @request.comment %></h4>
-<hr/>
-<h4>Requested on <%= @request.created_at %></h4>
+<div style="width: 100%; margin: 0 auto; border: 1px solid #f7f7f7;" class="container">
+    <div style="width: 100%; border-bottom: 1px solid #f7f7f7">
+        <h2 style="font-weight: normal; text-align: center;">New rent request from <%= @request.name %></h2>
+    </div>
+    <div>
+        <div>
+            <img src="<%= @request.listing.images.first.listing_image.url %>" style="width: 100%; height: auto;">
+        </div>
+        <div style="border-bottom: 1px solid #f7f7f7; padding-bottom: 8px;">
+            <h2 style="font-weight: normal; padding: 0 12px">Listing: <%= @request.listing.title %></h2>
+        </div>
+        <div style="border-bottom: 1px solid #f7f7f7; padding-bottom: 8px;">
+            <h2 style="font-weight: normal; padding: 0 12px">Contact Number: <%= @request.contact_number %></h2>
+        </div>
+        <div style="padding-bottom: 8px;">
+            <h2 style="font-weight: normal; padding: 0 12px"><%= @request.comment %></h2>
+        </div>
+        <div style="width: 100%; background-color: #f7f7f7; padding: 4px 0; margin-top: 12px;">
+            <h4 style="font-weight: normal; color: #ccc; text-align: center">Requested on <%= @request.created_at %></h4>
+        </div>
+    </div>
+</div>
 
 

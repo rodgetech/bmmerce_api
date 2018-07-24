@@ -5,6 +5,7 @@ class Api::V1::RentRequestsController < ApplicationController
         rent_request = RentRequest.new(rent_request_params)
         if rent_request.valid?
             rent_request.save
+            RequestMailer.rent_request(rent_request).deliver_now
             render json: rent_request, adapter: :json, status: 201
         else
             render json: { errors: rent_request.errors }, status: 422
