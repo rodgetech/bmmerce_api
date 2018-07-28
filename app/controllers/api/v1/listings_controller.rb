@@ -5,7 +5,9 @@ class Api::V1::ListingsController < ApplicationController
     before_action :set_user_listings, only: :user_listings
 
     def index
-        render json: @listings, adapter: :json
+        render json: @listings, 
+            fields: [:id, :title, :price, :address, :user_id, :is_rental, :created_at, :images], 
+            adapter: :json
     end
 
     def featured
@@ -26,7 +28,11 @@ class Api::V1::ListingsController < ApplicationController
         if listing.valid?
             listing.save
             store_images(listing)
-            render json: listing, adapter: :json, status: 201
+            listing.images.reload
+            render json: listing, 
+                include: 'images.first',
+                fields: [:id, :title, :price, :address, :user_id, :is_rental, :created_at],
+                adapter: :json, status: 201
         else
             render json: { errors: listing.errors }, status: 422
         end
@@ -36,7 +42,6 @@ class Api::V1::ListingsController < ApplicationController
         listing = Listing.find(params[:id])
         if listing.update(listing_params)
             store_images(listing)
-            listing = Listing.find(listing.id)
             render json: listing, adapter: :json, status: 200
         else
             render json: { errors: listing.errors }, status: 422
