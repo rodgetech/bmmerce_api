@@ -19,6 +19,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'pg_search'
 gem 'geocoder'
 gem 'mailgun-ruby', '~>1.1.6'
+gem 'kaminari'
 
 gem 'capistrano', '~> 3.7', '>= 3.7.1'
 gem 'capistrano-rails', '~> 1.2'

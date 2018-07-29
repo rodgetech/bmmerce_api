@@ -63,7 +63,9 @@ class Api::V1::ListingType::ListingsController < ApplicationController
     end
 
     def set_listings
-        if params[:limit]
+        if params[:page] && params[:limit]
+            @listings = Listing.order(created_at: :desc).page(params[:page]).per(params[:limit])
+        elsif params[:limit]
             @listings = Listing.order(created_at: :desc).limit(params[:limit])
         else 
             @listings = Listing.order(created_at: :desc)

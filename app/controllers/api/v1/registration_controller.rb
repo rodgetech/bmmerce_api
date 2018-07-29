@@ -1,4 +1,6 @@
 class Api::V1::RegistrationController < ApplicationController
+    skip_before_action :authenticate_request
+
     def register
         if User.find_by_email(register_params[:email])
             render json: { error: 'Email taken. Try to sign in instead.' }, status: :unprocessable_entity
@@ -18,6 +20,6 @@ class Api::V1::RegistrationController < ApplicationController
     private
 
     def register_params
-        params.permit(:name, :email, :contact_number, :password)
+        params.permit(:name, :email, :password)
     end
 end
