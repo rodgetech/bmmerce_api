@@ -9,4 +9,8 @@ class Api::V1::ListingType::RentalSerializer < ActiveModel::Serializer
   class UserSerializer < ActiveModel::Serializer
     attributes :id, :name
   end
+
+  class ImageSerializer < ActiveModel::Serializer
+    attributes :id, :listing_image
+  end
 end
