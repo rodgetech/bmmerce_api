@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :application, "belizers"
-set :repo_url, "git@bitbucket.org:realrodriguez/belizerentify_api.git"
+set :repo_url, "git@bitbucket.org:realrodriguez/bmmerce_api.git"
 
 
 # Default branch is :master
