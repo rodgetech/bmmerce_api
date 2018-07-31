@@ -10,4 +10,14 @@ class Api::V1::AuthenticationController < ApplicationController
             render json: { error: command.errors }, status: :unauthorized
         end
     end
+
+    def authenticate_business_user
+        command = AuthenticateBusinessUser.call(params[:email], params[:password])
+
+        if command.success?
+            render json: { auth_token: command.result }
+        else
+            render json: { error: command.errors }, status: :unauthorized
+        end
+    end
 end

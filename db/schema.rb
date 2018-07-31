@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180729163920) do
+ActiveRecord::Schema.define(version: 20180731205051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "business_users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "business_id"
+    t.index ["business_id"], name: "index_business_users_on_business_id"
+    t.index ["email"], name: "index_business_users_on_email", unique: true
+  end
 
   create_table "businesses", force: :cascade do |t|
     t.string "name"
@@ -96,6 +107,7 @@ ActiveRecord::Schema.define(version: 20180729163920) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "business_users", "businesses"
   add_foreign_key "images", "listings"
   add_foreign_key "listings", "districts"
   add_foreign_key "listings", "users"
