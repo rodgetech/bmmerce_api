@@ -9,7 +9,7 @@ set :repo_url, "git@bitbucket.org:realrodriguez/belizerentify_api.git"
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/api.belizers.com"
+set :deploy_to, "/var/www/api.bmmerce.com"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
