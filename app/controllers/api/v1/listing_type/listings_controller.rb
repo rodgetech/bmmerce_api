@@ -6,12 +6,9 @@ class Api::V1::ListingType::ListingsController < ApplicationController
 
     def index
         render json: @listings, 
+            meta: { total_pages: @total_pages },
             fields: [:id, :title, :price, :address, :user_id, :is_rental, :created_at], 
             adapter: :json
-    end
-
-    def featured
-        render json: @featured_listings, adapter: :json
     end
 
     def user_listings
@@ -65,18 +62,11 @@ class Api::V1::ListingType::ListingsController < ApplicationController
     def set_listings
         if params[:page] && params[:limit]
             @listings = Listing.order(created_at: :desc).page(params[:page]).per(params[:limit])
+            @total_pages = Listing.page(1).per(params[:limit]).total_pages
         elsif params[:limit]
             @listings = Listing.order(created_at: :desc).limit(params[:limit])
         else 
             @listings = Listing.order(created_at: :desc)
-        end
-    end
-
-    def set_featured_listings
-        if params[:limit]
-            @featured_listings = Listing.where(featured: true).order(created_at: :desc).limit(params[:limit])
-        else 
-            @featured_listings = Listing.where(featured: true).order(created_at: :desc)
         end
     end
 
