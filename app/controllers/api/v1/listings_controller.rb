@@ -1,5 +1,4 @@
 class Api::V1::ListingsController < ApplicationController
-    skip_before_action :authenticate_request, except: [:update, :user_listings, :destroy]
     before_action :set_listings, only: :index
     before_action :set_featured_listings, only: :featured
     before_action :set_user_listings, only: :user_listings

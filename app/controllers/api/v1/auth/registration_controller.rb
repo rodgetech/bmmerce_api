@@ -1,6 +1,4 @@
-class Api::V1::RegistrationController < ApplicationController
-    skip_before_action :authenticate_request
-
+class Api::V1::Auth::RegistrationController < ApplicationController
     def register
         if User.find_by_email(register_params[:email])
             render json: { error: 'Email taken. Try to sign in instead.' }, status: :unprocessable_entity

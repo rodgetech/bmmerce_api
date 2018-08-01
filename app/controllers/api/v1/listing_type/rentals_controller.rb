@@ -1,5 +1,4 @@
 class Api::V1::ListingType::RentalsController < ApplicationController
-    skip_before_action :authenticate_request
     before_action :set_listings, only: :index
 
     def index

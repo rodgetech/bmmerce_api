@@ -1,4 +1,3 @@
-class User < ApplicationRecord
-    has_secure_password
-    has_many :listings, dependent: :destroy
+class User < Account
+    validates_presence_of :name, :email
 end

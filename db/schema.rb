@@ -10,20 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180731205051) do
+ActiveRecord::Schema.define(version: 20180801163221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "business_users", force: :cascade do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.string "password_digest"
+    t.string "email"
+    t.string "username"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "business_id"
-    t.index ["business_id"], name: "index_business_users_on_business_id"
-    t.index ["email"], name: "index_business_users_on_email", unique: true
+    t.index ["business_id"], name: "index_accounts_on_business_id"
+    t.index ["email"], name: "index_accounts_on_email", unique: true
+    t.index ["username"], name: "index_accounts_on_username", unique: true
   end
 
   create_table "businesses", force: :cascade do |t|
@@ -34,13 +37,6 @@ ActiveRecord::Schema.define(version: 20180731205051) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_businesses_on_name", unique: true
-  end
-
-  create_table "districts", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_districts_on_name", unique: true
   end
 
   create_table "images", force: :cascade do |t|
@@ -57,11 +53,9 @@ ActiveRecord::Schema.define(version: 20180731205051) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "price_details"
-    t.bigint "user_id"
     t.string "address"
     t.decimal "price", precision: 8, scale: 2
     t.boolean "featured", default: false
-    t.bigint "district_id"
     t.string "contact_name"
     t.string "contact_email"
     t.string "contact_number"
@@ -72,29 +66,10 @@ ActiveRecord::Schema.define(version: 20180731205051) do
     t.float "latitude"
     t.float "longitude"
     t.boolean "is_rental", default: false
-    t.index ["district_id"], name: "index_listings_on_district_id"
-    t.index ["user_id"], name: "index_listings_on_user_id"
-  end
-
-  create_table "rent_requests", force: :cascade do |t|
-    t.string "name"
-    t.string "contact_number"
-    t.datetime "rent_date"
-    t.text "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "listing_id"
-    t.index ["listing_id"], name: "index_rent_requests_on_listing_id"
-  end
-
-  create_table "renters", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.string "contact_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_renters_on_email", unique: true
+    t.bigint "account_id"
+    t.bigint "business_id"
+    t.index ["account_id"], name: "index_listings_on_account_id"
+    t.index ["business_id"], name: "index_listings_on_business_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -104,12 +79,16 @@ ActiveRecord::Schema.define(version: 20180731205051) do
     t.string "contact_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "business_id"
+    t.string "username"
+    t.index ["business_id"], name: "index_users_on_business_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "business_users", "businesses"
+  add_foreign_key "accounts", "businesses"
   add_foreign_key "images", "listings"
-  add_foreign_key "listings", "districts"
-  add_foreign_key "listings", "users"
-  add_foreign_key "rent_requests", "listings"
+  add_foreign_key "listings", "accounts"
+  add_foreign_key "listings", "businesses"
+  add_foreign_key "users", "businesses"
 end

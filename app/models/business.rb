@@ -1,3 +1,5 @@
 class Business < ApplicationRecord
-    has_many :business_users, dependent: :destroy
+    geocoded_by :address
+    after_validation :geocode
+    has_many :listings
 end

@@ -1,3 +1,3 @@
-class BusinessUser < ApplicationRecord
-    belongs_to :business
+class BusinessUser < Account
+    validates_presence_of :username
 end
