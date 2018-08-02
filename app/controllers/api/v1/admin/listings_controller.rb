@@ -3,7 +3,9 @@ class Api::V1::Admin::ListingsController < ApiController
 
     # Render either business or account listings
     def index
-        render json: @listings, adapter: :json
+        render json: @listings,
+            meta: { total_pages: @total_pages },
+            adapter: :json
     end
 
     def show
@@ -51,9 +53,11 @@ class Api::V1::Admin::ListingsController < ApiController
 
     def set_listings
         if @current_business
-            @listings =  @current_business.listings.order(created_at: :desc)
+            @listings = @current_business.listings.order(created_at: :desc).page(params[:page])
+            @total_pages = @current_business.listings.page(1).total_pages
         else
-            @listings =  @current_account.listings.order(created_at: :desc)
+            @listings =  @current_account.listings.order(created_at: :desc).page(params[:page])
+            @total_pages = @current_account.listings.page(1).total_pages
         end
     end
 
