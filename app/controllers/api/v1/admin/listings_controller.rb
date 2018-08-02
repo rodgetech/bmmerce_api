@@ -1,12 +1,9 @@
 class Api::V1::Admin::ListingsController < ApiController
+    before_action :set_listings, only: :index
 
     # Render either business or account listings
     def index
-        if @current_business
-            render json: @current_business.listings, adapter: :json
-        else
-            render json: @current_account.listings, adapter: :json
-        end
+        render json: @listings, adapter: :json
     end
 
     def show
@@ -18,13 +15,13 @@ class Api::V1::Admin::ListingsController < ApiController
     # and business account or just to a regular account
     def create
         listing = @current_account.listings.new(listing_params)
+        listing.business_id = @current_business.id
         if listing.valid?
             listing.save
             store_images(listing)
             listing.images.reload
             render json: listing, 
-                include: 'images.first',
-                fields: [:id, :title, :price, :address, :account_id, :is_rental, :created_at],
+                include: ['images.first', 'account'],
                 adapter: :json, status: 201
         else
             render json: { errors: listing.errors }, status: 422
@@ -50,6 +47,14 @@ class Api::V1::Admin::ListingsController < ApiController
 
     def listing_params
         params.permit(:id, :title, :description, :is_rental, :price, :address)
+    end
+
+    def set_listings
+        if @current_business
+            @listings =  @current_business.listings.order(created_at: :desc)
+        else
+            @listings =  @current_account.listings.order(created_at: :desc)
+        end
     end
 
     def store_images(listing)

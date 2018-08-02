@@ -4,7 +4,6 @@ class Api::V1::ListingType::ListingsController < ApplicationController
     def index
         render json: @listings, 
             meta: { total_pages: @total_pages },
-            fields: [:id, :title, :price, :address, :description, :account_id, :is_rental, :created_at], 
             adapter: :json
     end
 

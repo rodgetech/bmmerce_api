@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       namespace :listing_type do
         resources :listings 
         resources :rentals, only: :index
+        resources :businesses, only: :show
       end
       
       namespace :admin do
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
         post 'authenticate/business', to: 'authentication#authenticate_business_user'
         post 'register', to: 'registration#register'
       end
-     
+      resources :businesses
       get 'search', to: 'search#search'
     end
   end

@@ -12,7 +12,6 @@ class AuthenticateBusinessUser
           name: user.name, 
           email: user.email, 
           type: 'business', 
-          business_id: user.business.id, 
           business_name: user.business.name) if user
     end
   

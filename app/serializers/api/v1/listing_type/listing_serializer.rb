@@ -3,9 +3,14 @@ class Api::V1::ListingType::ListingSerializer < ActiveModel::Serializer
     :account_id, :address, :created_at, :latitude, :longitude
     
   has_many :images
-  belongs_to :account  
+  belongs_to :account 
+  belongs_to :business 
 
   class AccountSerializer < ActiveModel::Serializer
+    attributes :id, :name
+  end
+
+  class BusinessSerializer < ActiveModel::Serializer
     attributes :id, :name
   end
 
