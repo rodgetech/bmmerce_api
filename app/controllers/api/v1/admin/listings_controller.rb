@@ -17,7 +17,7 @@ class Api::V1::Admin::ListingsController < ApiController
     # and business account or just to a regular account
     def create
         listing = @current_account.listings.new(listing_params)
-        listing.business_id = @current_business.id
+        listing.business_id = @current_business.id if @current_business
         if listing.valid?
             listing.save
             store_images(listing)
