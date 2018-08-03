@@ -16,6 +16,6 @@ class Api::V1::Admin::BusinessesController < ApiController
     private 
     
     def business_params
-        params.permit(:name, :address)
+        params.permit(:name, :address, :logo, :cover_image)
     end
 end
