@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180802231430) do
+ActiveRecord::Schema.define(version: 20180803225617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 20180802231430) do
     t.index ["name"], name: "index_businesses_on_name", unique: true
   end
 
+  create_table "engagements", force: :cascade do |t|
+    t.bigint "listing_id"
+    t.bigint "business_id"
+    t.integer "sender_id"
+    t.integer "recipient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_engagements_on_business_id"
+    t.index ["listing_id"], name: "index_engagements_on_listing_id"
+  end
+
   create_table "images", force: :cascade do |t|
     t.string "listing_image"
     t.bigint "listing_id"
@@ -55,17 +66,9 @@ ActiveRecord::Schema.define(version: 20180802231430) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "price_details"
     t.string "address"
     t.decimal "price", precision: 8, scale: 2
     t.boolean "featured", default: false
-    t.string "contact_name"
-    t.string "contact_email"
-    t.string "contact_number"
-    t.boolean "email_flag", default: true
-    t.boolean "phone_call_flag", default: true
-    t.boolean "sms_flag", default: true
-    t.boolean "whatsapp_flag", default: true
     t.float "latitude"
     t.float "longitude"
     t.boolean "is_rental", default: false
@@ -73,6 +76,17 @@ ActiveRecord::Schema.define(version: 20180802231430) do
     t.bigint "business_id"
     t.index ["account_id"], name: "index_listings_on_account_id"
     t.index ["business_id"], name: "index_listings_on_business_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.bigint "engagement_id"
+    t.bigint "account_id"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_messages_on_account_id"
+    t.index ["engagement_id"], name: "index_messages_on_engagement_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,8 +104,12 @@ ActiveRecord::Schema.define(version: 20180802231430) do
   end
 
   add_foreign_key "accounts", "businesses"
+  add_foreign_key "engagements", "businesses"
+  add_foreign_key "engagements", "listings"
   add_foreign_key "images", "listings"
   add_foreign_key "listings", "accounts"
   add_foreign_key "listings", "businesses"
+  add_foreign_key "messages", "accounts"
+  add_foreign_key "messages", "engagements"
   add_foreign_key "users", "businesses"
 end
