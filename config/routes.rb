@@ -11,6 +11,10 @@ Rails.application.routes.draw do
         resources :listings
         resource :account
         resource :business
+        resources :engagements do
+          resources :messages
+        end
+        resources :messages, only: :create
       end 
       
       namespace :auth do 
