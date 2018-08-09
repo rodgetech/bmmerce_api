@@ -20,6 +20,8 @@ gem 'pg_search'
 gem 'geocoder'
 gem 'mailgun-ruby', '~>1.1.6'
 gem 'kaminari'
+gem 'redis'
+gem 'redis-namespace'
 
 gem 'capistrano', '~> 3.7', '>= 3.7.1'
 gem 'capistrano-rails', '~> 1.2'

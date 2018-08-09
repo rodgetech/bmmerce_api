@@ -9,6 +9,6 @@ class Listing < ApplicationRecord
     belongs_to :business, optional: true
     has_many :images, dependent: :destroy
 
-    validates_presence_of :title, :address
+    validates_presence_of :title
     validates :price, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than: 0, less_than: 1000000 }
 end

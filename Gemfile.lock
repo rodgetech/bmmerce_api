@@ -173,6 +173,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    redis (4.0.1)
+    redis-namespace (1.6.0)
+      redis (>= 3.0.4)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -229,6 +232,8 @@ DEPENDENCIES
   puma (~> 3.7)
   rack-cors
   rails (~> 5.1.6)
+  redis
+  redis-namespace
   simple_command
   spring
   spring-watcher-listen (~> 2.0.0)
