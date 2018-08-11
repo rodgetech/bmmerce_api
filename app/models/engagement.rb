@@ -12,8 +12,10 @@ class Engagement < ApplicationRecord
 
   # Ensure that there is only ever one unique
   # engagement between a sender and a recipient
-  scope :between, -> (sender_id, recipient_id) do
-    where("(engagements.sender_id = ? AND engagements.recipient_id = ?) OR (engagements.sender_id = ? AND engagements.recipient_id = ?)", sender_id, recipient_id, recipient_id, sender_id)
+  scope :between, -> (sender_id, recipient_id, listing_id) do
+    where("(engagements.sender_id = ? AND engagements.recipient_id = ? AND engagements.listing_id = ?) OR 
+    (engagements.sender_id = ? AND engagements.recipient_id = ?  AND engagements.listing_id = ?)", 
+    sender_id, recipient_id, listing_id, recipient_id, sender_id, listing_id)
   end
 
   def create_inverse
