@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       
       namespace :auth do 
         post 'authenticate', to: 'authentication#authenticate'
+        post 'authenticate/facebook', to: 'authentication#facebook_authenticate'
+        post 'authenticate/google', to: 'authentication#google_authenticate'
         post 'authenticate/business', to: 'authentication#authenticate_business_user'
         post 'register', to: 'registration#register'
       end

@@ -8,6 +8,24 @@ class Api::V1::Auth::AuthenticationController < ApplicationController
         end
     end
 
+    def facebook_authenticate
+        user = User.facebook_authenticate(params)
+        if user
+            render json: { auth_token: JsonWebToken.encode(account_id: user.id) }
+        else
+            render json: {}, status: :unauthorized
+        end
+    end
+
+    def google_authenticate
+        user = User.google_authenticate(params)
+        if user
+            render json: { auth_token: JsonWebToken.encode(account_id: user.id) }
+        else
+            render json: {}, status: :unauthorized
+        end
+    end
+
     def authenticate_business_user
         command = AuthenticateBusinessUser.call(params[:username], params[:password])
         if command.success?

@@ -1,6 +1,7 @@
 class Account < ApplicationRecord
     mount_uploader :avatar, AvatarUploader
-    has_secure_password
+    # Disable password validation for social logins
+    has_secure_password :validations => false
     
     belongs_to :business, optional: true
     has_many :listings
