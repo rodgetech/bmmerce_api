@@ -34,6 +34,7 @@ class Api::V1::Admin::ListingsController < ApiController
         listing = Listing.find(params[:id])
         if listing.update(listing_params)
             store_images(listing)
+            listing.images.reload
             render json: listing, adapter: :json, status: 200
         else
             render json: { errors: listing.errors }, status: 422

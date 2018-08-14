@@ -7,7 +7,7 @@ class Api::V1::Admin::UserSerializer < ActiveModel::Serializer
 
     def avatar
         if object.avatar.url 
-            object.avatar
+            object.avatar.url
         elsif object.provider_image
             object.provider_image
         else

@@ -5,7 +5,7 @@ class Api::V1::Admin::EngagementSerializer < ActiveModel::Serializer
     belongs_to :recipient
 
     class ListingSerializer < ActiveModel::Serializer
-        attributes :id, :title, :images
+        attributes :id, :title, :images, :price
     end
 end
   

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         resource :business
         resources :engagements
         resources :messages
+        resources :images, only: :destroy
       end 
       
       namespace :auth do 
