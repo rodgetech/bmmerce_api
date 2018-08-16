@@ -26,15 +26,14 @@ class Api::V1::ListingType::ListingsController < ApplicationController
         # end
         if params[:swlat]
             bounds = [params[:swlat], params[:swlong], params[:nelat], params[:nelong]]
-            puts "HEREREEE"
-            puts bounds
-            @listings = Listing.within_bounding_box(bounds).order(created_at: :desc)
+            @listings = Listing.within_bounding_box(bounds).page(params[:page]).per(10).order(created_at: :desc)
+            @total_pages = Listing.within_bounding_box(bounds).page(1).per(10).total_pages
         elsif params[:latitude] && params[:longitude]
-            @listings = Listing.near([params[:latitude], params[:longitude]], 40).order(created_at: :desc)
-        elsif params[:limit]
-            @listings = Listing.order(created_at: :desc).limit(params[:limit])
+            @listings = Listing.near([params[:latitude], params[:longitude]], 40).page(params[:page]).per(10).order(created_at: :desc)
+            @total_pages = Listing.near([params[:latitude], params[:longitude]], 40).page(1).per(10).total_pages
         else 
-            @listings = Listing.order(created_at: :desc)
+            @listings = Listing.page(params[:page]).per(10).order(created_at: :desc)
+            @total_pages = Listing.page(1).per(10).total_pages
         end
     end
 end
