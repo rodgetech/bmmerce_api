@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180812221327) do
+ActiveRecord::Schema.define(version: 20180815033342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,8 +81,12 @@ ActiveRecord::Schema.define(version: 20180812221327) do
     t.boolean "is_rental", default: false
     t.bigint "account_id"
     t.bigint "business_id"
+    t.string "district"
     t.index ["account_id"], name: "index_listings_on_account_id"
     t.index ["business_id"], name: "index_listings_on_business_id"
+    t.index ["district"], name: "index_listings_on_district"
+    t.index ["latitude"], name: "index_listings_on_latitude"
+    t.index ["longitude"], name: "index_listings_on_longitude"
   end
 
   create_table "messages", force: :cascade do |t|

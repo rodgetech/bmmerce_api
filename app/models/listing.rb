@@ -2,8 +2,7 @@ class Listing < ApplicationRecord
     include PgSearch
     pg_search_scope :search, against: [:title], using: { tsearch: { prefix: true } }
 
-    geocoded_by :address
-    after_validation :geocode
+    reverse_geocoded_by :latitude, :longitude
 
     belongs_to :account
     belongs_to :business, optional: true

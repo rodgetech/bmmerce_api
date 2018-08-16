@@ -7,7 +7,6 @@ class Api::V1::SearchController < ApplicationController
         else
             render json: @listings, 
                 meta: { total_pages: @total_pages },
-                fields: [:id, :title, :price, :address, :user_id, :is_rental, :created_at], 
                 adapter: :json
         end
     end

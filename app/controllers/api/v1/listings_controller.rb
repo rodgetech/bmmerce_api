@@ -62,7 +62,14 @@ class Api::V1::ListingsController < ApplicationController
     end
 
     def set_listings
-        if params[:limit]
+        if params[:swlat]
+            bounds = [params[:swlat], params[:swlong], params[:nelat], params[:nelong]]
+            puts "HEREREEE"
+            puts bounds
+            @listings = Listing.within_bounding_box(bounds).order(created_at: :desc)
+        elsif params[:latitude] && params[:longitude]
+            @listings = Listing.near([params[:latitude].to_f, params[:longitude].to_f], 50).order(created_at: :desc)
+        elsif params[:limit]
             @listings = Listing.order(created_at: :desc).limit(params[:limit])
         else 
             @listings = Listing.order(created_at: :desc)

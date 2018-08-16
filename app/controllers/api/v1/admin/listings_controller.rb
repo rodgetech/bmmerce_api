@@ -49,7 +49,8 @@ class Api::V1::Admin::ListingsController < ApiController
     private
 
     def listing_params
-        params.permit(:id, :title, :description, :price, :images)
+        params.permit(:id, :title, :description, :address,
+            :price, :images, :latitude, :longitude, :district)
     end
 
     def set_listings
