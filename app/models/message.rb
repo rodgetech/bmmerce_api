@@ -1,6 +1,7 @@
 class Message < ApplicationRecord
   belongs_to :engagement
   belongs_to :account
+  belongs_to :recipient, foreign_key: 'recipient_id', class_name: 'Account'
 
   # after_create :create_inverse
 

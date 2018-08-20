@@ -18,6 +18,6 @@ class Api::V1::Auth::RegistrationController < ApplicationController
     private
 
     def register_params
-        params.permit(:name, :email, :password)
+        params.permit(:name, :email, :password, :player_id)
     end
 end
