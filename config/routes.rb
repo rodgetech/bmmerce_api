@@ -11,7 +11,9 @@ Rails.application.routes.draw do
         resources :listings
         resource :account
         resource :business
-        resources :engagements
+        resources :engagements do
+          patch 'mark_messages_read', on: :member
+        end
         resources :messages
         resources :images, only: :destroy
       end 

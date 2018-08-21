@@ -67,8 +67,10 @@ module Api
 
                 def set_messages
                     @engagement = Engagement.between(@current_account.id, params[:recipient_id], params[:listing_id]).first
-                    @messages = @engagement.messages.order(created_at: :desc).page(params[:page]).per(14)
-                    @total_pages = @messages.page(1).per(14).total_pages
+                    if @engagement
+                        @messages = @engagement.messages.order(created_at: :desc).page(params[:page]).per(14)
+                        @total_pages = @messages.page(1).per(14).total_pages
+                    end
                 end
             end
         end

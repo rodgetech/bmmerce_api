@@ -34,4 +34,5 @@ class Engagement < ApplicationRecord
   def self.inversed(account_id, listing_id)  
     where(recipient_id: account_id, listing_id: listing_id).first
   end
+
 end
