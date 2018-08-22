@@ -13,7 +13,9 @@ class Api::V1::Admin::EngagementsController < ApiController
 
     def mark_messages_read
         @engagement.messages.where(recipient_id: @current_account.id, read: false).update_all(read: true)
-        head 204
+        # Return updated unread messages count
+        unread_count = Message.where(recipient_id: @current_account.id, read: false).count
+        render json: unread_count, adapter: :json
     end
 
     private

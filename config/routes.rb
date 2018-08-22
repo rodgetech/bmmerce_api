@@ -14,7 +14,9 @@ Rails.application.routes.draw do
         resources :engagements do
           patch 'mark_messages_read', on: :member
         end
-        resources :messages
+        resources :messages do
+          get 'unread', on: :collection
+        end
         resources :images, only: :destroy
       end 
       

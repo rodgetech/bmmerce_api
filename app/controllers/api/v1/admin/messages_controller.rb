@@ -12,6 +12,11 @@ module Api
                     end
                 end
 
+                def unread
+                    unread_count = Message.where(recipient_id: @current_account.id, read: false).count
+                    render json: unread_count, adapter: :json
+                end
+
                 # @TODO Refactor
                 def create
                     # Create or query engagement
@@ -28,7 +33,9 @@ module Api
                         body: params[:body], 
                         engagement_id: @engagement.id, 
                         account_id: @current_account.id,
-                        recipient_id: params[:recipient_id])
+                        recipient_id: params[:recipient_id],
+                        read: true
+                    )
                     if message.save!
                         # Create message copy and assign to inversed engagement
                         inversed_engagement = Engagement.between(@current_account.id, params[:recipient_id], params[:listing_id]).where.not(id: @engagement.id).first
