@@ -1,5 +1,5 @@
 class User < Account
-    validates_presence_of :name
+    validates_presence_of :name, :player_id
 
     def self.facebook_authenticate(params)
         where(uid: params[:uid], provider: "facebook").first_or_create! do |user|

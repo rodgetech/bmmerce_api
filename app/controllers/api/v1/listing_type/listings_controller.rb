@@ -16,14 +16,6 @@ class Api::V1::ListingType::ListingsController < ApplicationController
     private
 
     def set_listings
-        # if params[:page] && params[:limit]
-        #     @listings = Listing.order(created_at: :desc).page(params[:page]).per(params[:limit])
-        #     @total_pages = Listing.page(1).per(params[:limit]).total_pages
-        # elsif params[:limit]
-        #     @listings = Listing.order(created_at: :desc).limit(params[:limit])
-        # else 
-        #     @listings = Listing.order(created_at: :desc)
-        # end
         if params[:swlat]
             bounds = [params[:swlat], params[:swlong], params[:nelat], params[:nelong]]
             @listings = Listing.order(created_at: :desc).within_bounding_box(bounds).page(params[:page]).per(20)

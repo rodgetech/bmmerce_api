@@ -14,6 +14,8 @@ module Api
 
                 def unread
                     unread_count = Message.where(recipient_id: @current_account.id, read: false).count
+                    puts "UNREADDDD"
+                    puts unread_count
                     render json: unread_count, adapter: :json
                 end
 
@@ -21,7 +23,8 @@ module Api
                 def create
                     # Create or query engagement
                     if Engagement.between(@current_account.id, params[:recipient_id], params[:listing_id]).present?
-                        @engagement = Engagement.between(@current_account.id, params[:recipient_id], params[:listing_id]).first
+                        # @engagement = Engagement.between(@current_account.id, params[:recipient_id], params[:listing_id]).first
+                        @engagement = Engagement.where(sender_id: @current_account.id, recipient_id: params[:recipient_id], listing_id: params[:listing_id]).first
                     else
                         @engagement = Engagement.create!(
                             listing_id: params[:listing_id], 
@@ -48,7 +51,7 @@ module Api
                         $redis.publish 'new-message', MessageSerializer.new(inversed_message).to_json
                        
                         # Dispatch new message notification
-                        notification_params = {"app_id" => "cbcb5b64-eb7f-4b94-a023-2dd3f868717d", 
+                        notification_params = {"app_id" => "6e1f4645-71e3-469e-838a-16d2a3fdd1b1", 
                             "contents" => {"en" => message.body},
                             "headings" => {"en" => "New Message From #{message.account.name}"},
                             "include_player_ids" => [message.recipient.player_id],
@@ -61,7 +64,7 @@ module Api
                         
                         request = Net::HTTP::Post.new(uri.path,
                                                         'Content-Type'  => 'application/json;charset=utf-8',
-                                                        'Authorization' => "Basic MmFiYjEyYjgtOTZiYy00YTc2LTk5Y2UtZWNiYjYxZmRkNGJi")
+                                                        'Authorization' => "Basic YmVhMjg0NDYtMjZkMi00YjQyLWFlZGUtYmE4ZmIyYjg5ZTMy")
                         request.body = notification_params.as_json.to_json
                         response = http.request(request) 
                         puts "PUSHER RESPONSE"
@@ -74,6 +77,8 @@ module Api
 
                 def set_messages
                     @engagement = Engagement.between(@current_account.id, params[:recipient_id], params[:listing_id]).first
+                    # puts "THE ENGAGEMENTS"
+                    # puts @engagement.id
                     if @engagement
                         @messages = @engagement.messages.order(created_at: :desc).page(params[:page]).per(14)
                         @total_pages = @messages.page(1).per(14).total_pages

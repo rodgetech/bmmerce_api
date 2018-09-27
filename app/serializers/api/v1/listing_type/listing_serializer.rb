@@ -1,6 +1,6 @@
 class Api::V1::ListingType::ListingSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :is_rental, :price,
-    :account_id, :address, :created_at, :latitude, :longitude
+    :account_id, :address, :district, :created_at, :latitude, :longitude
     
   has_many :images
   belongs_to :account 
