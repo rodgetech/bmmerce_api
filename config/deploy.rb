@@ -54,3 +54,7 @@ namespace :sidekiq do
       end
     end
 end
+
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:reverted', 'sidekiq:restart'
+after 'deploy:published', 'sidekiq:restart'
