@@ -13,9 +13,21 @@ class Api::V1::Admin::AccountsController < ApiController
         end
     end
 
+    def address
+        if @current_account.update_attributes(address_params)
+            render json: @current_account, adapter: :json, status: 200
+        else
+            render json: { errors: @current_account.errors }, status: 422
+        end
+    end
+
     private 
     
     def account_params
         params.permit(:name, :email, :password, :avatar)
+    end
+
+    def address_params
+        params.permit(:address, :latitude, :longitude)
     end
 end

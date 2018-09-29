@@ -9,8 +9,10 @@ Rails.application.routes.draw do
       
       namespace :admin do
         resources :listings
-        resource :account
         resource :business
+        resource :account do
+          put 'address', on: :member
+        end
         resources :engagements do
           patch 'mark_messages_read', on: :member
         end

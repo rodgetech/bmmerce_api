@@ -48,27 +48,12 @@ module Api
                             account_id: @current_account.id,
                             recipient_id: params[:recipient_id]
                         )
+                        # Stream new message to node service
                         $redis.publish 'new-message', MessageSerializer.new(inversed_message).to_json
                        
                         # Dispatch new message notification
-                        notification_params = {"app_id" => "6e1f4645-71e3-469e-838a-16d2a3fdd1b1", 
-                            "contents" => {"en" => message.body},
-                            "headings" => {"en" => "New Message From #{message.account.name}"},
-                            "include_player_ids" => [message.recipient.player_id],
-                            "data" => {"message" => message}
-                           }
+                        NewMessageNotificationWorker.perform_async(message.id)
 
-                        uri = URI.parse('https://onesignal.com/api/v1/notifications')
-                        http = Net::HTTP.new(uri.host, uri.port)
-                        http.use_ssl = true
-                        
-                        request = Net::HTTP::Post.new(uri.path,
-                                                        'Content-Type'  => 'application/json;charset=utf-8',
-                                                        'Authorization' => "Basic YmVhMjg0NDYtMjZkMi00YjQyLWFlZGUtYmE4ZmIyYjg5ZTMy")
-                        request.body = notification_params.as_json.to_json
-                        response = http.request(request) 
-                        puts "PUSHER RESPONSE"
-                        puts response
                         render json: message, adapter: :json
                     end
                 end
