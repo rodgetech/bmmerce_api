@@ -17,13 +17,11 @@ class OneSignalService
   end
 
   def send_notification(body)
-    puts "HAHAHAHA"
     result = HTTParty.post(
       API_URL, 
       headers: HEADERS, 
       body: body
     )
-    puts result
   end
 
   def new_message_notification
