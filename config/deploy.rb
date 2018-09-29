@@ -41,3 +41,16 @@ set :deploy_to, "/var/www/api.bmmerce.com"
 
 append :linked_files, "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system", "public/uploads"
+
+namespace :sidekiq do
+    task :quiet do
+      on roles(:app) do
+        puts capture("pgrep -f 'sidekiq' | xargs kill -TSTP") 
+      end
+    end
+    task :restart do
+      on roles(:app) do
+        execute :sudo, :systemctl, :restart, 'sidekiq'
+      end
+    end
+end
