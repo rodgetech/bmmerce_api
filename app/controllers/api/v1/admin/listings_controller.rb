@@ -22,6 +22,8 @@ class Api::V1::Admin::ListingsController < ApiController
             listing.save
             store_images(listing)
             listing.images.reload
+            # Dispatch new listing notification to near users
+            NewListingNotificationWorker.perform_async(listing.id)
             render json: listing, 
                 include: ['images.first', 'account'],
                 adapter: :json, status: 201

@@ -7,6 +7,8 @@ class Account < ApplicationRecord
     has_many :listings, dependent: :destroy
     has_many :engagements, foreign_key: :sender_id
 
+    reverse_geocoded_by :latitude, :longitude
+
     # def engagements
     #     Engagement.where(sender_id: self.id).or(Engagement.where(recipient_id: self.id))
     # end
