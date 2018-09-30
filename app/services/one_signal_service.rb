@@ -27,9 +27,12 @@ class OneSignalService
   def new_message_notification
     notification_body = { 
       "app_id" => APP_ID,
-      "include_player_ids" => [@record.recipient.player_id],
+      # "include_player_ids" => [@record.recipient.player_id],
       "contents" => { "en" => "#{@record.body}" },
       "headings" => {"en" => "New message from #{@record.account.name}"},
+      "filters" => [
+        {"field": "tag", "key": "userId", "relation": "=", "value": "#{@record.recipient.id}"}, 
+      ]
     }.to_json
     send_notification(notification_body)
   end

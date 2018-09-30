@@ -11,6 +11,7 @@ class Api::V1::Auth::AuthenticationController < ApplicationController
     def facebook_authenticate
         user = User.facebook_authenticate(params)
         if user
+            # user.update_attribute(:player_id, params[:player_id]) if params[:player_id]
             render json: { auth_token: JsonWebToken.encode(account_id: user.id) }
         else
             render json: {}, status: :unauthorized
