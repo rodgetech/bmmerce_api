@@ -14,7 +14,11 @@ class Api::V1::Admin::AccountsController < ApiController
     end
 
     def address
-        if @current_account.update_attributes(address_params)
+        if @current_account.update_attributes!(
+                address: params[:address],
+                latitude: params[:latitude],
+                longitude: params[:longitude]
+            )
             render json: @current_account, adapter: :json, status: 200
         else
             render json: { errors: @current_account.errors }, status: 422
@@ -25,9 +29,5 @@ class Api::V1::Admin::AccountsController < ApiController
     
     def account_params
         params.permit(:name, :email, :password, :avatar)
-    end
-
-    def address_params
-        params.permit(:address, :latitude, :longitude)
     end
 end
