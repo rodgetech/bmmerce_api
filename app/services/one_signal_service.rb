@@ -44,7 +44,8 @@ class OneSignalService
       "include_player_ids" => player_ids,
       "contents" => { "en" => "#{@record.title}" },
       "headings" => {"en" => "New item posted near you"},
-      "big_picture" => @record.images.first.listing_image.url
+      "big_picture" => @record.images.first.listing_image.url,
+      "data" => {"listingId": "#{@record.id}"}
     }.to_json
     send_notification(notification_body)
   end
