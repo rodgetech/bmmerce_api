@@ -2,8 +2,6 @@ class Api::V1::Auth::AuthenticationController < ApplicationController
     def authenticate
         command = AuthenticateUser.call(params[:email], params[:password])
         if command.success?
-            user = User.find_by_email(params[:email])
-            user.update_attribute(:player_id, params[:player_id]) if params[:player_id]
             render json: { 
                 auth_token: command.result,
                 has_address: user.address.present?
@@ -16,7 +14,7 @@ class Api::V1::Auth::AuthenticationController < ApplicationController
     def facebook_authenticate
         user = User.facebook_authenticate(params)
         if user
-            user.update_attribute(:player_id, params[:player_id]) if params[:player_id]
+            user.update_attribute(:provider_image, params[:avatar])
             render json: { 
                 auth_token: JsonWebToken.encode(account_id: user.id),
                 has_address: user.address.present?
