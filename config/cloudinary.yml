@@ -1,22 +1,19 @@
 ---
 development:
-  cloud_name: dwaavflqp
-  api_key: '224668318764929'
-  api_secret: LQbR43L_cks9asw8ptWH_x6GCN8
+  cloud_name: bmmerce
+  api_key: '671386158788172'
+  api_secret: tCl7YIWXe0d5nqeyWf4wxSexIYM
   enhance_image_tag: true
   static_image_support: false
-  secure: true
 production:
-  cloud_name: dwaavflqp
-  api_key: '224668318764929'
-  api_secret: LQbR43L_cks9asw8ptWH_x6GCN8
+  cloud_name: bmmerce
+  api_key: '671386158788172'
+  api_secret: tCl7YIWXe0d5nqeyWf4wxSexIYM
   enhance_image_tag: true
   static_image_support: true
-  secure: true
 test:
-  cloud_name: dwaavflqp
-  api_key: '224668318764929'
-  api_secret: LQbR43L_cks9asw8ptWH_x6GCN8
+  cloud_name: bmmerce
+  api_key: '671386158788172'
+  api_secret: tCl7YIWXe0d5nqeyWf4wxSexIYM
   enhance_image_tag: true
   static_image_support: false
-  secure: true
