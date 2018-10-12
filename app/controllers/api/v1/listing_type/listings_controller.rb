@@ -21,8 +21,8 @@ class Api::V1::ListingType::ListingsController < ApplicationController
             @listings = Listing.order(created_at: :desc).within_bounding_box(bounds).page(params[:page]).per(20)
             @total_pages = Listing.within_bounding_box(bounds).page(1).per(20).total_pages
         elsif params[:latitude] && params[:longitude]
-            @listings = Listing.order(created_at: :desc).near([params[:latitude], params[:longitude]], 40).page(params[:page]).per(20)
-            @total_pages = Listing.near([params[:latitude], params[:longitude]], 40).page(1).per(20).total_pages
+            @listings = Listing.order(created_at: :desc).near([params[:latitude], params[:longitude]]).page(params[:page]).per(20)
+            @total_pages = Listing.near([params[:latitude], params[:longitude]]).page(1).per(20).total_pages
         else 
             @listings = Listing.order(created_at: :desc).page(params[:page]).per(20)
             @total_pages = Listing.page(1).per(20).total_pages

@@ -2,6 +2,7 @@ class Api::V1::Auth::AuthenticationController < ApplicationController
     def authenticate
         command = AuthenticateUser.call(params[:email], params[:password])
         if command.success?
+            user = User.find_by_email(params[:email])
             render json: { 
                 auth_token: command.result,
                 has_address: user.address.present?
