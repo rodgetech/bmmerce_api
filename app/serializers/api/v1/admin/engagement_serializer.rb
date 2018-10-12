@@ -21,7 +21,7 @@ class Api::V1::Admin::EngagementSerializer < ActiveModel::Serializer
             elsif object.provider_image
                 object.provider_image
             else
-                "https://res.cloudinary.com/dwaavflqp/image/upload/v1534114081/avatar-placeholder_vscerq.png"
+                "https://res.cloudinary.com/bmmerce/image/upload/v1539372688/avatar.png"
             end
         end
     end
