@@ -39,7 +39,7 @@ class OneSignalService
 
   def new_listing_notification
     # player_ids = Account.where.not(id: @record.account.id).near([@record.latitude, @record.longitude], 25).each.pluck(:player_id)
-    Account.where.not(id: @record.account.id).near([@record.latitude, @record.longitude], 10).find_each do |account|
+    Account.where.not(id: @record.account.id).near([@record.latitude, @record.longitude], 15).find_each do |account|
       notification_body = { 
         "app_id" => APP_ID,
         # "include_player_ids" => player_ids,
