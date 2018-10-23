@@ -1,10 +1,11 @@
 
 Rails.application.routes.draw do
   require 'sidekiq/web'
-mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/sidekiq'
   namespace :api do
     namespace :v1 do
       namespace :listing_type do
+        resources :users
         resources :listings 
         resources :rentals, only: :index
         resources :businesses, only: :show
