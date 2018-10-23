@@ -1,5 +1,5 @@
 class Api::V1::UserSerializer < ActiveModel::Serializer
-    attributes :id, :name, :email, :avatar, :password_digest, :address
+    attributes :id, :name, :avatar, :address, :created_at
 
     def password_digest
         ""
