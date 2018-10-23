@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :listing_type do
-        resources :users
         resources :listings 
         resources :rentals, only: :index
         resources :businesses, only: :show
@@ -34,6 +33,7 @@ Rails.application.routes.draw do
         post 'register', to: 'registration#register'
       end
       resources :businesses
+      resources :users
       get 'search', to: 'search#search'
     end
   end
