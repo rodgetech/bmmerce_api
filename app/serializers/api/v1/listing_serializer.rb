@@ -1,5 +1,5 @@
 class Api::V1::ListingSerializer < ActiveModel::Serializer
-  attributes :id, :title
+  attributes :id, :title, :created_at
     
   has_many :images
 
