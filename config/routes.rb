@@ -33,7 +33,9 @@ Rails.application.routes.draw do
         post 'register', to: 'registration#register'
       end
       resources :businesses
-      resources :users
+      resources :users do
+        get 'listings', on: :member
+      end
       get 'search', to: 'search#search'
     end
   end
