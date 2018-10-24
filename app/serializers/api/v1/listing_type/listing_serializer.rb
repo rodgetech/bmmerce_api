@@ -7,7 +7,7 @@ class Api::V1::ListingType::ListingSerializer < ActiveModel::Serializer
   belongs_to :business 
 
   class AccountSerializer < ActiveModel::Serializer
-    attributes :id, :name, :avatar
+    attributes :id, :name, :avatar, :created_at, :address
     def avatar
       if object.avatar.url 
           object.avatar.url
