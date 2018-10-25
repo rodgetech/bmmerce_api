@@ -14,7 +14,7 @@ class Api::V1::ListingType::ListingSerializer < ActiveModel::Serializer
       elsif object.provider_image
           object.provider_image
       else
-          "https://res.cloudinary.com/bmmerce/image/upload/v1539372688/avatar.png"
+          "https://res.cloudinary.com/bmmerce/image/upload/v1540489328/avatar-placeholder.png"
       end
     end
   end
