@@ -82,7 +82,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.1)
     ffi (1.9.25)
-    geocoder (1.4.9)
+    geocoder (1.6.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     http-cookie (1.0.3)
